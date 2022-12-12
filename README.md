@@ -16,3 +16,9 @@ Win11 native application notebook based on WinUi3 design
 
 # Note Bright theme (明亮主题):
 ![4](https://user-images.githubusercontent.com/37917403/204701255-46b4240b-d28a-4916-8336-80ae15e19125.png)
+
+# Contact
+
+QQ Group
+
+![HelloNoteGroup](https://user-images.githubusercontent.com/37917403/207003711-a07e8e49-abad-47c9-b9bb-3657389682d6.png)
