@@ -1,6 +1,8 @@
 # HelloNote 
 Win11 native application notebook based on WinUi3 design
 
+[Microsoft Store](https://apps.microsoft.com/store/detail/hellonote/9N94LT5S8FD9?hl=zh-cn&gl=cn)
+
 基于WinUi3 设计的现代化Win11笔记本应用
 
 # Note Main Page:
