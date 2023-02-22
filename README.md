@@ -1,4 +1,4 @@
-# HelloNote 
+# HiNote 
 Win11 native application notebook based on WinUi3 design
 基于WinUi3 设计的现代化Win11笔记本应用
 
