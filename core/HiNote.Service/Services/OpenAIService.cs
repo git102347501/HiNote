@@ -15,8 +15,6 @@ namespace HiNote.Service.Services
 {
     public class OpenAIService : BasicService, IOpenAIService
     {
-        private readonly string apiKey = "youkey";
-
         /// <summary>
         /// 创建文本指令
         /// </summary>
@@ -52,28 +50,6 @@ namespace HiNote.Service.Services
             {
                 return new ResultDto<CreateEditOuput>("获取用户信息失败，请重新登录!");
             }
-        }
-        
-        public async Task<ChatOutput> ChatAsync(List<ChatInput> input)
-        {
-            HttpClient client = new HttpClient();
-            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-
-            // 设置请求参数
-            var data = new
-            {
-                model = "gpt-3.5-turbo",
-                messages = input
-            };
-
-            // 发起POST请求并获取响应
-            var response = await client.PostAsJsonAsync("https://api.openai.com/v1/chat/completions", data);
-            var jsonString = await response.Content.ReadAsStringAsync();
-
-            // 解析响应JSON并输出生成的聊天响应
-            var responseObject = JsonConvert.DeserializeObject<ChatOutput>(jsonString);
-            return responseObject;
         }
     }
 }

@@ -10,7 +10,5 @@ namespace HiNote.Service.Contracts.Services
     public interface IOpenAIService
     {
         public Task<ResultDto<CreateEditOuput>> CreateEditAsync(CreateEditInput input);
-
-        public Task<ChatOutput> ChatAsync(List<ChatInput> input);
     }
 }

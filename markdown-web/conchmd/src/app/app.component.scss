@@ -1,0 +1,33 @@
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 0 3px 0 3px;
+  margin: 0;
+}
+.ref {
+  position: fixed;
+  top: 6px;
+  right: 6px;
+  color: #fff;
+  background-color: #8BC6EC;
+  background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+  -moz-box-shadow:2px 2px 5px #333333; -webkit-box-shadow:2px 2px 5px #333333; box-shadow:2px 2px 5px #333333;
+  width: 35px;
+  height: 35px;
+  border-radius: 17.5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.ref:hover{
+  transition: all 0.3s;
+  -moz-box-shadow:2px 2px 6px #8BC6EC; -webkit-box-shadow:2px 2px 6px #8BC6EC; box-shadow:2px 2px 6px #8BC6EC;
+}
+.ref img {
+  width: 25px;
+  height: 25px;
+  color:#fff;
+}
