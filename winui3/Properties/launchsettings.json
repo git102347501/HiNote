@@ -1,0 +1,10 @@
+﻿{
+    "profiles": {
+      "HiNote (Package)": {
+        "commandName": "MsixPackage"
+      },
+      "HiNote (Unpackaged)": {
+        "commandName": "Project"
+      }
+    }
+}
