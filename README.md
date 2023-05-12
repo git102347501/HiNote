@@ -1,8 +1,9 @@
 # HiNote 
 Win11 native application notebook based on WinUi3 design
-基于WinUi3 设计的现代化Win11笔记本应用
 
-Official website：https://note.magicalconch.com
+# 基于WinUi3 设计的现代化Win11笔记本应用
+
+Official website: https://note.magicalconch.com
 
 ![microsoft](https://user-images.githubusercontent.com/37917403/206961341-fadbdff9-e178-4d83-9245-9bb94dc97816.png)
 
