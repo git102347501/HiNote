@@ -1,0 +1,41 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>HelloNote.Core</RootNamespace>
+    <Platforms>AnyCPU;x64;x86</Platforms>
+    <Platforms>x86;x64;arm64;AnyCPU</Platforms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <AssemblyVersion>2.0.1</AssemblyVersion>
+    <FileVersion>2.0.1</FileVersion>
+    <Version>2.0.1</Version>
+    <ApplicationIcon>WindowIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="HiNote.Service\**" />
+    <Compile Remove="HiNote.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="HiNote.Service\**" />
+    <EmbeddedResource Remove="HiNote.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="HiNote.Service\**" />
+    <None Remove="HiNote.Test\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="WindowIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\winui\HiNote\Assets\StoreLogo.scale-150.png" />
+  </ItemGroup>
+</Project>

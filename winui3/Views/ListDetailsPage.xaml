@@ -1,0 +1,352 @@
+﻿<Page
+    x:Class="HiNote.Views.ListDetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:HiNote.Views"
+    xmlns:model ="using:HiNote.ViewModels"
+    xmlns:smodel ="using: HiNote.Service.Models"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:behaviors="using:HiNote.Behaviors"
+    behaviors:NavigationViewHeaderBehavior.HeaderMode="Never"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <DataTemplate x:Key="ContactListViewTemplate" x:DataType="model:NoteItem">
+            <StackPanel  Width="Auto" Orientation="Horizontal" HorizontalAlignment="Left">
+                <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Page"/>
+                <TextBlock Text="{ x:Bind Title,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Phase="1" Margin="0,5,0,5"/>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="FolderTemplate"
+                      x:DataType="model:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          Width="205" Height="40" PointerPressed="TreeViewItem_PointerPressed"
+                          VerticalAlignment="Center" HorizontalAlignment="Left" HorizontalContentAlignment="Left"
+                          VerticalContentAlignment="Center"
+                           IsSelected="{x:Bind IsSelected,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                ItemsSource="{x:Bind Children}" IsExpanded="{x:Bind IsExpanded,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+
+                <StackPanel Width="Auto" Orientation="Horizontal" HorizontalAlignment="Left">
+                    <TextBlock Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+
+        <DataTemplate x:Key="FileTemplate"
+                      x:DataType="model:ExplorerItem">
+            <TreeViewItem AutomationProperties.Name="{x:Bind Name}" 
+                           IsSelected="{x:Bind IsSelected,Mode=TwoWay}">
+
+                <StackPanel Orientation="Horizontal" >
+                    <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Refresh"/>
+                    <TextBlock Margin="0,0,10,0"/>
+                    <TextBlock Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+            </TreeViewItem>
+        </DataTemplate>
+        <model:ExplorerItemTemplateSelector 
+            x:Key="ExplorerItemTemplateSelector"
+            FolderTemplate="{StaticResource FolderTemplate}"
+            FileTemplate="{StaticResource FileTemplate}" />
+    </Page.Resources>
+    <Grid Width="Auto" Height="Auto">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="{x:Bind ViewModel.CategoryWidth, Mode=OneWay}"></ColumnDefinition>
+            <ColumnDefinition Width="{x:Bind ViewModel.NoteWidth, Mode=OneWay}"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid Width="Auto" Height="Auto" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Padding="10,0,10,0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Margin="0,0,10,0" Click="AddCategory_Button_Click">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Add"/>
+                        <TextBlock x:Uid="NoteListPage_Category_Add" />
+                    </StackPanel>
+                </Button>
+                <Button Width="45" Margin="0,0,10,0" Click="RefCategory_Button_Click">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
+                        <SymbolIcon Width="20" Height="20" Symbol="Refresh"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <TreeView x:Uid="categoryTreeView" Grid.Row="1" 
+                        Visibility="{x:Bind ViewModel.NoteCategoryVisibility, Mode=OneWay}"
+                        x:Name="categoryTreeView" CanDragItems="True" Margin="0"  Padding="0"                 
+                        ScrollViewer.VerticalScrollMode="Enabled" 
+                        ScrollViewer.IsVerticalRailEnabled="True"
+                        HorizontalAlignment="Left"
+                        Width="205"
+                        Height="Auto"
+                        VerticalAlignment="Stretch"
+                        ItemInvoked="categoryTreeView_ItemInvoked"
+                        ScrollViewer.HorizontalScrollMode="Enabled"
+                        ItemTemplateSelector="{ StaticResource ExplorerItemTemplateSelector}" 
+                        AllowDrop="True"                 
+                        ItemsSource="{x:Bind ViewModel.DataSource,Mode=OneWay}">
+            </TreeView>
+            <StackPanel Grid.Row="1"  Margin="0,8,0,0"  Visibility="{x:Bind ViewModel.NoteCategoryNullVisibility, Mode=OneWay}" 
+                        Width="Auto" Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBlock x:Uid="NoteListPage_Category_DataNull" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            </StackPanel>
+            <ProgressRing Margin="0,10,0,0" Grid.Row="1"  IsActive="{x:Bind ViewModel.NoteCategoryLoading, Mode=OneWay}" />
+        </Grid>
+        <Grid Width="Auto" Height="Auto" Grid.Column="1" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" Padding="10,0,10,0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <Button Margin="0,0,10,0" Click="AddNote_Button_Click">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Add"/>
+                        <TextBlock x:Uid="NoteListPage_Note_Add" />
+                    </StackPanel>
+                </Button>
+                <Button Width="45" Margin="0,0,10,0" Click="SortButton_Click" >
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <SymbolIcon Width="19" Height="19" Symbol="{x:Bind ViewModel.SortIcon, Mode=OneWay}"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+            <ListView
+                Grid.Row="1"
+                x:Name="NoteList"
+                Visibility="{x:Bind ViewModel.NoteListVisibility, Mode=OneWay}"
+                SelectionChanged="NoteList_SelectionChanged"
+                SelectedIndex="{x:Bind ViewModel.SelectIndex,Mode=TwoWay}"
+                PointerPressed="NoteList_PointerPressed"
+                ItemsSource="{x:Bind ViewModel.NoteItems,Mode=OneWay}"
+                ItemTemplate="{StaticResource ContactListViewTemplate}"
+                BorderBrush="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+                HorizontalAlignment="Stretch"/>
+            <ProgressRing Margin="0,10,0,0" Grid.Row="1"  IsActive="{x:Bind ViewModel.NoteListLoading, Mode=OneWay}" />
+            <StackPanel Grid.Row="1" Margin="0,8,0,0"  Visibility="{x:Bind ViewModel.NoteListNullVisibility, Mode=OneWay}" Width="Auto"
+                        Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center">
+                <TextBlock x:Uid="NoteListPage_Note_DataNull" FontSize="12" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <!--<views:ListDetailsDetailControl Grid.Column="1"></views:ListDetailsDetailControl>-->
+        <Grid  Grid.Column="2" Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="43"></RowDefinition>
+                <RowDefinition Height="45"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--日记详情-内容区域-->
+            <StackPanel Grid.Row="0" Width="Auto" Padding="12,5,12,2" Orientation="Horizontal">
+                <StackPanel.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Button">
+                            <Setter Property="BorderThickness" Value="0" />
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="Margin" Value="0,0,8,0" />
+                        </Style>
+
+                        <ResourceDictionary.ThemeDictionaries>
+                            <ResourceDictionary x:Key="HighContrast">
+                                <StaticResource x:Key="ButtonBackgroundPointerOver" ResourceKey="SystemColorHighlightColor" />
+                            </ResourceDictionary>
+                        </ResourceDictionary.ThemeDictionaries>
+                    </ResourceDictionary>
+                </StackPanel.Resources>
+                <Button Visibility="{x:Bind ViewModel.FullBtn, Mode=OneWay}" x:Name="FullScreenButton" Click="FullScreenButton_Click" ToolTipService.ToolTip="全屏" 
+                        RelativePanel.LeftOf="FullScreenButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE760;"/>
+                    </Button.Content>
+                </Button>
+                <Button Visibility="{x:Bind ViewModel.FullBackBtn, Mode=OneWay }" x:Name="FullScreenBackButton" Click="FullScreenButton_Click" ToolTipService.ToolTip="退出全屏" 
+                        RelativePanel.LeftOf="FullScreenButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE761;"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Uid="NoteListPage_Note_Save" Width="45" Visibility="{x:Bind ViewModel.NoteSaveVisibility, Mode=OneWay}" Click="SaveButton_Click"
+                        RelativePanel.RightOf="SaveFileButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74E;"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Uid="NoteListPage_Note_SaveIn" Width="45" Visibility="{x:Bind ViewModel.NoteLoadingVisibility, Mode=OneWay}" 
+                        IsEnabled="True" 
+                        RelativePanel.RightOf="LoadingSaveButton">
+                    <Button.Content>
+                        <ProgressRing Width="16" Height="16" IsActive="True" />
+                    </Button.Content>
+                </Button>
+                <Button x:Uid="NoteListPage_Note_Choice" Width="45" Click="ChoiceButton_Click"
+                        RelativePanel.RightOf="ChoiceEditorButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0B3;"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Uid="NoteListPage_Note_Ai" Width="45" Click="AiButton_Click"
+                        RelativePanel.RightOf="AiButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEBD2;"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Uid="NoteListPage_Note_Delete" Click="DeleteButton_Click" AccessKey="D"
+                        RelativePanel.RightOf="openFileButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE74D;"/>
+                    </Button.Content>
+                </Button>
+                <Button AutomationProperties.Name="Bold" ToolTipService.ToolTip="Bold" Click="BoldButton_Click" 
+                        RelativePanel.LeftOf="italicButton" >
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8DD;"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="italicButton" Click="ItalicButton_Click" AutomationProperties.Name="Italic" ToolTipService.ToolTip="Italic" 
+                        RelativePanel.LeftOf="fontColorButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8DB;"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="FontDecreaseButton" Click="FontDecreaseButton_Click" AutomationProperties.Name="FontDecrease" ToolTipService.ToolTip="FontDecrease" 
+                        RelativePanel.LeftOf="FontDecreaseButton">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E7;"/>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="FontIncrease" Click="FontIncreaseButton_Click" AutomationProperties.Name="FontIncrease" ToolTipService.ToolTip="FontIncrease" 
+                        RelativePanel.LeftOf="FontIncrease">
+                    <Button.Content>
+                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8E8;"/>
+                    </Button.Content>
+                </Button>
+                <DropDownButton x:Name="fontColorButton"
+                                            BorderThickness="0" 
+                                            AutomationProperties.Name="Font color"
+                                            ToolTipService.ToolTip="Font color"
+                                            Background="Transparent" 
+                                            RelativePanel.AlignRightWithPanel="True">
+                    <SymbolIcon Symbol="FontColor"/>
+                    <DropDownButton.Flyout>
+                        <Flyout Placement="Bottom">
+                            <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3">
+                                <VariableSizedWrapGrid.Resources>
+                                    <Style TargetType="Rectangle">
+                                        <Setter Property="Width" Value="32"/>
+                                        <Setter Property="Height" Value="32"/>
+                                    </Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Padding" Value="0"/>
+                                        <Setter Property="MinWidth" Value="0"/>
+                                        <Setter Property="MinHeight" Value="0"/>
+                                        <Setter Property="Margin" Value="6"/>
+                                    </Style>
+                                </VariableSizedWrapGrid.Resources>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="White">
+                                    <Button.Content>
+                                        <Rectangle Fill="White"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="Red">
+                                    <Button.Content>
+                                        <Rectangle Fill="Red"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="Orange">
+                                    <Button.Content>
+                                        <Rectangle Fill="Orange"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="Black">
+                                    <Button.Content>
+                                        <Rectangle Fill="Black"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="Gray">
+                                    <Button.Content>
+                                        <Rectangle Fill="Gray"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="Blue">
+                                    <Button.Content>
+                                        <Rectangle Fill="CadetBlue"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="Indigo">
+                                    <Button.Content>
+                                        <Rectangle Fill="Indigo"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="BlueViolet">
+                                    <Button.Content>
+                                        <Rectangle Fill="BlueViolet"/>
+                                    </Button.Content>
+                                </Button>
+                                <Button Click="ColorButton_Click" AutomationProperties.Name="GreenYellow">
+                                    <Button.Content>
+                                        <Rectangle Fill="GreenYellow"/>
+                                    </Button.Content>
+                                </Button>
+                            </VariableSizedWrapGrid>
+                        </Flyout>
+                    </DropDownButton.Flyout>
+                </DropDownButton>
+                <TextBlock x:Uid="NoteListPage_Note_Search" x:Name="findBoxLabel" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <TextBox x:Uid="NoteListPage_Note_SearchInput" x:Name="findBox" Width="210"
+                         TextChanged="{x:Bind FindBoxHighlightMatches}" 
+                            GotFocus="{x:Bind FindBoxHighlightMatches}" 
+                            LostFocus="{x:Bind FindBoxRemoveHighlights}"
+                         Margin="10,0,0,0"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" Padding="4">
+                <TextBox x:Uid="NoteListPage_Note_TitleInput" 
+                         Text="{x:Bind ViewModel.Data.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </TextBox>
+            </StackPanel>
+            <Grid Grid.Row="2" Padding="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ProgressBar  Grid.Column="0" Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Bottom"
+                      Margin="0,0,0,0"
+                      IsIndeterminate="{x:Bind ViewModel.IsStart, Mode=OneWay }"
+                      ShowError="{x:Bind ViewModel.IsError, Mode=OneWay }" />
+                <!--选择-->
+                <Grid Grid.Column="0" Grid.Row="1" Visibility="{x:Bind ViewModel.NoteChoiceVisibility, Mode=OneWay}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0" Click="RichButton_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <TextBlock Text="RichEditor" TextWrapping="WrapWholeWords"/>
+                    </Button>
+                    <Button Grid.Column="1" Click="MdButton_Click"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <TextBlock Text="MarkDownEditor" TextWrapping="WrapWholeWords"/>
+                    </Button>
+                </Grid>
+                <!--富文本-->
+                <RichEditBox Grid.Column="0" Grid.Row="1" Visibility="{x:Bind ViewModel.NoteEditVisibility, Mode=OneWay}" 
+                             x:Uid="NoteListPage_Note_ContentInput"  x:Name="editor" Padding="10"
+                              TextChanged="Editor_TextChanged" TextAlignment="Left"
+                              Width="Auto" Height="Auto" />
+                <!--MarkDown-->
+                <Grid Grid.Column="0" Grid.Row="1" Visibility="{x:Bind ViewModel.NoteMdEditVisibility, Mode=OneWay}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox x:Name="mdTextBox"  x:Uid="NoteListPage_Note_ContentMdInput" Grid.Column="0" KeyUp="TextBox_KeyDown"
+                    TextWrapping="Wrap" Text="{ x:Bind ViewModel.Data.Content,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" IsSpellCheckEnabled="True" Padding="10" Width="Auto" Height="Auto" />
+                    <WebView2 x:Name="mdWebView" Grid.Column="1" Source="https://hinote.magicalconch.com" />
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Page>

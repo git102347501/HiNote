@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <PackageVersion>2.2.5</PackageVersion>
+        <Title>EasyNote.Service</Title>
+        <Description>Api服务</Description>
+        <PackageProjectUrl>https://github.com/git102347501/EasyNote</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/git102347501/EasyNote</RepositoryUrl>
+        <PackageTags>HiNote</PackageTags>
+        <Version>2.1.1</Version>
+        <AssemblyVersion>2.1.1</AssemblyVersion>
+        <FileVersion>2.1.1</FileVersion>
+        <ApplicationIcon>WindowIcon.ico</ApplicationIcon>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <None Include="..\..\..\winui\HiNote\Assets\StoreLogo.scale-150.png" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    </ItemGroup>
+
+</Project>
