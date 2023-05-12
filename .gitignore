@@ -1,7 +1,5 @@
-﻿core/HiNote.Service/obj
-core/obj/Debug
-core/obj
-core/.idea/.idea.HelloNote.Core/.idea
-core/.vs
-
+﻿obj
+Debug
+.idea
+.vs
 *.vsidx
