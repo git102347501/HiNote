@@ -5,9 +5,8 @@ Win11 native application notebook based on WinUi3 design
 
 Official website: https://note.magicalconch.com
 
-![microsoft](https://user-images.githubusercontent.com/37917403/206961341-fadbdff9-e178-4d83-9245-9bb94dc97816.png)
-
-[Download from Microsoft Store](https://apps.microsoft.com/store/detail/hellonote/9N94LT5S8FD9?hl=zh-cn&gl=cn)
+[![microsoft](https://user-images.githubusercontent.com/37917403/206961341-fadbdff9-e178-4d83-9245-9bb94dc97816.png)
+](https://apps.microsoft.com/store/detail/hellonote/9N94LT5S8FD9?hl=zh-cn&gl=cn)
 
 # How to use（开始使用项目）
 
