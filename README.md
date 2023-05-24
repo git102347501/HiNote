@@ -1,13 +1,14 @@
 # HiNote 
-Win11 native application notebook based on WinUi3 design
 
-# 基于WinUi3 设计的现代化Win11笔记本应用
+# Win11 native application notebook based on WinUi3 design
+  基于WinUi3 设计的现代化Win11笔记本应用
 
-Official website: https://note.magicalconch.com
+# Official website (官网直达): 
+  https://note.magicalconch.com
 
-![microsoft](https://user-images.githubusercontent.com/37917403/206961341-fadbdff9-e178-4d83-9245-9bb94dc97816.png)
-
-[Download from Microsoft Store](https://apps.microsoft.com/store/detail/hellonote/9N94LT5S8FD9?hl=zh-cn&gl=cn)
+# Microsoft Store (微软商店直达)
+[![microsoft](https://user-images.githubusercontent.com/37917403/206961341-fadbdff9-e178-4d83-9245-9bb94dc97816.png)
+](https://apps.microsoft.com/store/detail/hellonote/9N94LT5S8FD9?hl=zh-cn&gl=cn)
 
 # How to use（开始使用项目）
 
@@ -19,6 +20,8 @@ Official website: https://note.magicalconch.com
   - VS2022
   - Winui3 SDK
   - UWP DeskTop Develop Tool
+  - Windows(10/11) SDK
+  - Net 6.0 SDK
 
 - # Introduction（项目分层介绍）
   - # api
@@ -71,14 +74,19 @@ Light and dark theme support
 
 
 # Note Main Page (主页面):
-![image](https://github.com/git102347501/HiNote/assets/37917403/ffa1b104-83d8-4d06-8973-d10463721c24)
-![image](https://github.com/git102347501/HiNote/assets/37917403/039b62ac-64b3-43c6-a96a-e70cfc2d15e5)
-![image](https://github.com/git102347501/HiNote/assets/37917403/b21b8e26-a856-4017-8cc2-d777cebf89f9)
-![image](https://github.com/git102347501/HiNote/assets/37917403/22e6d6de-8de5-43ed-ac88-2fcd93d81422)
+![38b61eca49a9d1ff382b45ed24725e0](https://github.com/git102347501/HiNote/assets/37917403/64fb3932-6a15-440b-8377-d66c3e064611)
+![794a16ec101a5b93266f399e8dcc518](https://github.com/git102347501/HiNote/assets/37917403/deedb233-0285-4d16-b74a-09eec9afbe94)
 
+# Multi-Language Support (多语言支持):
+![8dfb875514988afbce0015a407a1b61](https://github.com/git102347501/HiNote/assets/37917403/b60082b1-f215-4124-8e45-bfac1a26d914)
+![67eaf34df253cc3262c1291bdfdfc8c](https://github.com/git102347501/HiNote/assets/37917403/b91c4277-2471-47fa-98d3-b54b91936139)
+
+
+# Full Windows (全屏模式)：
+![image](https://github.com/git102347501/HiNote/assets/37917403/98638a85-c660-4615-a920-3c2ca3709dff)
 
 # Note Setting Page (设置页面):
-![3](https://user-images.githubusercontent.com/37917403/204701252-6d3e6d2e-9a95-4e68-8e49-7df3056d6788.png)
+![1684805164722](https://github.com/git102347501/HiNote/assets/37917403/f4a97c48-4f18-473c-b804-343d9f0c0136)
 
 # Note Bright theme (明亮主题):
 ![4](https://user-images.githubusercontent.com/37917403/204701255-46b4240b-d28a-4916-8336-80ae15e19125.png)
