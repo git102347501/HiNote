@@ -3,5 +3,5 @@ Debug
 .idea
 .vs
 *.vsidx
-winui3/obj
-winui3/.vs
+.vs
+obj
