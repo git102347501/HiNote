@@ -78,13 +78,6 @@
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
-        "http://nexus.ibenlai.com/repository/nuget-api": {},
-        "http://nexus.ibenlai.com/repository/nuget-api-legacy": {},
-        "http://nexus.ibenlai.com/repository/nuget-arch-legacy": {},
-        "http://nexus.ibenlai.com/repository/nuget-arch/": {},
-        "http://nexus.ibenlai.com/repository/nuget-bi-legacy": {},
-        "http://nexus.ibenlai.com/repository/nuget-erp-legacy": {},
-        "http://nexus.ibenlai.com/repository/nuget-wms-legacy": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -127,49 +120,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nexus.ibenlai.com/repository/nuget-arch-legacy'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    },
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nexus.ibenlai.com/repository/nuget-api-legacy'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    },
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nexus.ibenlai.com/repository/nuget-erp-legacy'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    },
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nexus.ibenlai.com/repository/nuget-wms-legacy'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    },
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nexus.ibenlai.com/repository/nuget-bi-legacy'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    },
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nexus.ibenlai.com/repository/nuget-api'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    },
-    {
-      "code": "NU1803",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "You are running the 'restore' operation with an 'HTTP' source, 'http://nexus.ibenlai.com/repository/nuget-arch/'. Non-HTTPS access will be removed in a future version. Consider migrating to an 'HTTPS' source."
-    }
-  ]
+  }
 }

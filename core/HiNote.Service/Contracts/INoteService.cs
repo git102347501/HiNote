@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HiNote.Service.Contracts.Services
+namespace HiNote.Service.Contracts
 {
     public interface INoteService
     {

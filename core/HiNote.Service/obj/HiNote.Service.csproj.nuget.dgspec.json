@@ -27,13 +27,6 @@
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "C:\\Program Files\\dotnet\\library-packs": {},
-          "http://nexus.ibenlai.com/repository/nuget-api": {},
-          "http://nexus.ibenlai.com/repository/nuget-api-legacy": {},
-          "http://nexus.ibenlai.com/repository/nuget-arch-legacy": {},
-          "http://nexus.ibenlai.com/repository/nuget-arch/": {},
-          "http://nexus.ibenlai.com/repository/nuget-bi-legacy": {},
-          "http://nexus.ibenlai.com/repository/nuget-erp-legacy": {},
-          "http://nexus.ibenlai.com/repository/nuget-wms-legacy": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
