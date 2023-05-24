@@ -6,8 +6,6 @@ using HiNote.Core.Services;
 using HiNote.Helpers;
 using HiNote.Models;
 using HiNote.Notifications;
-using HiNote.Service.Contracts.Services;
-using HiNote.Service.Services;
 using HiNote.Services;
 using HiNote.ViewModels;
 using HiNote.Views;
@@ -110,12 +108,7 @@ public partial class App : Application
             services.AddSingleton<INavigationService, NavigationService>();
 
             // Core Services
-            services.AddSingleton<INoteService, NoteService>();
-            services.AddSingleton<IOpenAIService, OpenAIService>();
             services.AddSingleton<IFileService, FileService>();
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<IExchangeCodeService, ExchangeCodeService>();
-            services.AddSingleton<ICurrencyService, CurrencyService>();
 
             // Views and ViewModels
             services.AddTransient<SettingsViewModel>();
@@ -126,9 +119,7 @@ public partial class App : Application
             services.AddSingleton<ListDetailsPage>();
             services.AddScoped<ShellPage>();
             services.AddSingleton<ShellViewModel>();
-            services.AddTransient<LoginViewModel>();
             services.AddSingleton<ListDetailsDetailModel>();
-            services.AddSingleton<UserInfoViewModel>();
             services.AddSingleton<SelectTreeViewModel>();
             // Configuration
             services.Configure<LocalSettingsOptions>(context.Configuration.GetSection(nameof(LocalSettingsOptions)));

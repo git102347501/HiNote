@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v6.0": {
-      "HiNote.Service/2.1.1": {
+      "HiNote.Service/2.3.0": {
         "dependencies": {
           "Newtonsoft.Json": "13.0.1"
         },
@@ -25,7 +25,7 @@
     }
   },
   "libraries": {
-    "HiNote.Service/2.1.1": {
+    "HiNote.Service/2.3.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

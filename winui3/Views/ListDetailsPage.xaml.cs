@@ -130,36 +130,28 @@ public sealed partial class ListDetailsPage : Page
     /// <param name="e"></param>
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        var shellViewModel = App.GetService<ShellViewModel>();
-        if (shellViewModel.IsLogin)
+        string content;
+        if (ViewModel.Data.EditType == 1)
         {
-            string content;
-            if (ViewModel.Data.EditType == 1)
-            {
-                content = ViewModel.Data.Content;
-            } 
-            else
-            {
-                editor.Document.GetText(TextGetOptions.FormatRtf, out content);
-            }
-
-            var data = await ViewModel.SaveNote(content);
-            if (!data.IsSuccess)
-            {
-                await new ContentDialog
-                {
-                    XamlRoot = this.XamlRoot,
-                    Title = data.Message ?? GetLocalString("NoteListPageNoteSaveFailMsg"),
-                    PrimaryButtonText = GetLocalString("NoteListPageNoteSaveFailBtn"),
-                    DefaultButton = ContentDialogButton.Primary
-                }.ShowAsync();
-            }
-            mdWebView.Reload();
+            content = ViewModel.Data.Content;
         }
         else
         {
-            this.Login();
+            editor.Document.GetText(TextGetOptions.FormatRtf, out content);
         }
+
+        var data = await ViewModel.SaveNote(content);
+        if (!data.IsSuccess)
+        {
+            await new ContentDialog
+            {
+                XamlRoot = this.XamlRoot,
+                Title = data.Message ?? GetLocalString("NoteListPageNoteSaveFailMsg"),
+                PrimaryButtonText = GetLocalString("NoteListPageNoteSaveFailBtn"),
+                DefaultButton = ContentDialogButton.Primary
+            }.ShowAsync();
+        }
+        mdWebView.Reload();
     }
     private async void MoveNote()
     {
@@ -209,15 +201,7 @@ public sealed partial class ListDetailsPage : Page
 
     private async void AddNote_Button_Click(object sender, RoutedEventArgs e)
     {
-        var shellViewModel = App.GetService<ShellViewModel>();
-        if (shellViewModel.IsLogin)
-        {
-            await this.AddNote();
-        }
-        else
-        {
-            this.Login();
-        }
+        await this.AddNote();
     }
 
     #region 目录操作
@@ -228,15 +212,7 @@ public sealed partial class ListDetailsPage : Page
     /// <param name="e"></param>
     private async void RefCategory_Button_Click(object sender, RoutedEventArgs e)
     {
-        var shellViewModel = App.GetService<ShellViewModel>();
-        if (shellViewModel.IsLogin)
-        {
-            await ViewModel.LoadCategoryListAsync();
-        }
-        else
-        {
-            this.Login();
-        }
+        await ViewModel.LoadCategoryListAsync();
     }
     /// <summary>
     /// 添加目录事件
@@ -245,15 +221,7 @@ public sealed partial class ListDetailsPage : Page
     /// <param name="e"></param>
     private async void AddCategory_Button_Click(object sender, RoutedEventArgs e)
     {
-        var shellViewModel = App.GetService<ShellViewModel>();
-        if (shellViewModel.IsLogin)
-        {
-            await this.AddCategory();
-        }
-        else
-        {
-            this.Login();
-        }
+        await this.AddCategory();
     }
     /// <summary>
     /// 添加目录
@@ -389,15 +357,7 @@ public sealed partial class ListDetailsPage : Page
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        var shellViewModel = App.GetService<ShellViewModel>();
-        if (shellViewModel.IsLogin)
-        {
-            DeleteNoteAsync();
-        }
-        else
-        {
-            this.Login();
-        }
+        DeleteNoteAsync();
     }
     private async void DeleteNoteAsync()
     {
@@ -449,55 +409,17 @@ public sealed partial class ListDetailsPage : Page
 
     private async void SortButton_Click(object sender, RoutedEventArgs e)
     {
-        var shellViewModel = App.GetService<ShellViewModel>();
-        if (shellViewModel.IsLogin)
+        if (this.ViewModel.SortIcon == "Up")
         {
-            if (this.ViewModel.SortIcon == "Up")
-            {
-                this.ViewModel.SortIcon = "Download";
-                this.ViewModel.Sorting = "id Desc";
-            }
-            else
-            {
-                this.ViewModel.SortIcon = "Up";
-                this.ViewModel.Sorting = "id";
-            }
-            await ViewModel.LoadNoteList();
+            this.ViewModel.SortIcon = "Download";
+            this.ViewModel.Sorting = "id Desc";
         }
         else
         {
-            this.Login();
+            this.ViewModel.SortIcon = "Up";
+            this.ViewModel.Sorting = "id";
         }
-    }
-
-    /// <summary>
-    /// 登录
-    /// </summary>
-    private void Login()
-    {
-        var newWindow = WindowHelper.CreateWindow();
-        var rootPage = new LoginPage();
-        rootPage.RequestedTheme = ThemeHelper.RootTheme;
-        newWindow.Content = rootPage;
-        newWindow.SetWindowSize(430, 440);
-        newWindow.SetIsAlwaysOnTop(true);
-        newWindow.SetWindowPresenter(AppWindowPresenterKind.Overlapped);
-        newWindow.ExtendsContentIntoTitleBar = true;
-        WindowId windowId = Win32Interop.GetWindowIdFromWindow(newWindow.GetWindowHandle());
-        AppWindow appWindow = AppWindow.GetFromWindowId(windowId);
-        if (appWindow is not null)
-        {
-            DisplayArea displayArea = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Nearest);
-            if (displayArea is not null)
-            {
-                var CenteredPosition = appWindow.Position;
-                CenteredPosition.X = ((displayArea.WorkArea.Width - appWindow.Size.Width) / 2);
-                CenteredPosition.Y = ((displayArea.WorkArea.Height - appWindow.Size.Height) / 2);
-                appWindow.Move(CenteredPosition);
-            }
-        }
-        newWindow.Activate();
-
+        await ViewModel.LoadNoteList();
     }
 
     private void BoldButton_Click(object sender, RoutedEventArgs e)
@@ -649,114 +571,6 @@ public sealed partial class ListDetailsPage : Page
         {
             await ViewModel.SaveNote(ViewModel.Data.Content);
             ViewModel.RefWebView();
-        }
-    }
-
-    private async void AiButton_Click(object sender, RoutedEventArgs e)
-    {
-        var content = "";
-        if (this.ViewModel.Data.EditType == 1)
-        {
-            content = mdTextBox.SelectedText;
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                content = ViewModel.Data.Content;
-            }
-        } 
-        else
-        {
-            content = editor.Document.Selection.Text;
-            if (string.IsNullOrWhiteSpace(content))
-            {
-                editor.Document.GetText(TextGetOptions.UseCrlf, out content);
-            }
-        }
-        if (string.IsNullOrWhiteSpace(content))
-        {
-            await new ContentDialog
-            {
-                XamlRoot = this.XamlRoot,
-                Title = "询问内容不能为空",
-                Content = "选择内容或正文不能为空",
-                PrimaryButtonText = "我知道了",
-                DefaultButton = ContentDialogButton.Primary
-            }.ShowAsync();
-            return;
-        }
-        var inputTextBox = new TextBox
-        {
-            AcceptsReturn = false,
-            Height = 32,
-            MaxLength = 100,
-            Text = "",
-            PlaceholderText = GetLocalString("NoteAIDialogPlaceholderText")
-        };
-        var dialog = new ContentDialog
-        {
-            Content = inputTextBox,
-            Title = GetLocalString("NoteAIDialogTitle"),
-            IsSecondaryButtonEnabled = true,
-            PrimaryButtonText = GetLocalString("Confirm"),
-            SecondaryButtonText = GetLocalString("Cancel"),
-            XamlRoot = this.XamlRoot,
-            RequestedTheme = this.ActualTheme
-        };
-
-        var confirmres = await dialog.ShowAsync() == ContentDialogResult.Primary;
-        if (confirmres)
-        {
-            if (string.IsNullOrWhiteSpace(inputTextBox.Text))
-            {
-                await new ContentDialog
-                {
-                    XamlRoot = this.XamlRoot,
-                    Title = "指令不能为空",
-                    Content = "AI需要您的具体指令才能明白任务方向",
-                    PrimaryButtonText = "我知道了",
-                    DefaultButton = ContentDialogButton.Primary
-                }.ShowAsync();
-                return;
-            }
-            var res = await ViewModel.GetAITextAsync(content, inputTextBox.Text);
-            if (!res.IsSuccess)
-            {
-                var confirmres1 = await new ContentDialog
-                {
-                    XamlRoot = this.XamlRoot,
-                    Title = "额度不足",
-                    Content = "您的AI询问额度已用完，点击下方充值后即可继续使用",
-                    SecondaryButtonText = "确认",
-                    PrimaryButtonText = "充值",
-                    DefaultButton = ContentDialogButton.Primary
-                }.ShowAsync();
-                if (confirmres1 == ContentDialogResult.Primary)
-                {
-                    ShowUserDetail();
-                }
-            }
-        }
-    }
-    /// <summary>
-    /// 展示用户详情
-    /// </summary>
-    private async void ShowUserDetail()
-    {
-        var dialog = new ContentDialog
-        {
-            Content = new UserInfoPage(),
-            Title = GetLocalString("UserInfoDialogTitle"),
-            IsSecondaryButtonEnabled = true,
-            Width = 420,
-            PrimaryButtonText = GetLocalString("Logout"),
-            SecondaryButtonText = GetLocalString("Close"),
-            XamlRoot = this.XamlRoot,
-            RequestedTheme = this.ActualTheme
-        };
-
-        if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-        {
-            UserHepler.LogOut();
-            Login();
         }
     }
 }

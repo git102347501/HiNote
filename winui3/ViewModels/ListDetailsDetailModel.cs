@@ -1,5 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using HiNote.Service.Contracts.Services;
+using HiNote.Service.Contracts;
 using HiNote.Service.Models;
 
 namespace HiNote.ViewModels

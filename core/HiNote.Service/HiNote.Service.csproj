@@ -4,16 +4,18 @@
         <TargetFramework>net6.0</TargetFramework>
         <Nullable>enable</Nullable>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <PackageVersion>2.2.5</PackageVersion>
+        <PackageVersion>2.3.0</PackageVersion>
         <Title>EasyNote.Service</Title>
         <Description>Api服务</Description>
         <PackageProjectUrl>https://github.com/git102347501/EasyNote</PackageProjectUrl>
         <RepositoryUrl>https://github.com/git102347501/EasyNote</RepositoryUrl>
         <PackageTags>HiNote</PackageTags>
-        <Version>2.1.1</Version>
-        <AssemblyVersion>2.1.1</AssemblyVersion>
-        <FileVersion>2.1.1</FileVersion>
+        <Version>2.3.0</Version>
+        <AssemblyVersion>2.3.0</AssemblyVersion>
+        <FileVersion>2.3.0</FileVersion>
         <ApplicationIcon>WindowIcon.ico</ApplicationIcon>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     </PropertyGroup>
 
     <ItemGroup>

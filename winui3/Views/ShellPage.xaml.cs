@@ -41,27 +41,6 @@ public sealed partial class ShellPage : Page
 
     private async void InitAsync()
     {
-        var setting = UserHepler.GetTokenSetting();
-        if (setting.Item2 != null && !string.IsNullOrWhiteSpace(setting.Item2.ToString()))
-        {
-            if (DateTime.TryParse(setting.Item2.ToString(), out DateTime expirationTimes))
-            {
-                if (expirationTimes <= DateTime.Now)
-                {
-                    UserHepler.ClearTokenSetting();
-                }
-            }
-        }
-        if (setting.Item1 != null)
-        {
-            CurrentUser.AccessToken = setting.Item1.ToString();
-            var data = await UserHepler.RefUserInfoAsync();
-            if (data)
-            {
-                var listDetailsViewModel = App.GetService<ListDetailsViewModel>();
-                await listDetailsViewModel.LoadCategoryListAsync();
-            }
-        }
     }
 
     private void OnLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
@@ -106,79 +85,8 @@ public sealed partial class ShellPage : Page
         args.Handled = result;
     }
 
-    /// <summary>
-    /// 点击用户列表项目
-    /// </summary>
-    /// <param name="sender"></param>
-    /// <param name="e"></param>
-    private void NavigationViewItem_Tapped(object sender, TappedRoutedEventArgs e)
-    {
-        if (!ViewModel.IsLogin)
-        {
-            this.Login();
-        }
-        else
-        {
-            this.ShowUserDetail();
-        }
-    }
     private string GetLocalString(string key)
     {
         return new ResourceLoader().GetString(key);
     }
-
-    /// <summary>
-    /// 展示用户详情
-    /// </summary>
-    private async void ShowUserDetail()
-    {
-        var dialog = new ContentDialog
-        {
-            Content = new UserInfoPage(),
-            Title = GetLocalString("UserInfoDialogTitle"),
-            IsSecondaryButtonEnabled = true,
-            Width = 420,
-            PrimaryButtonText = GetLocalString("Logout"),
-            SecondaryButtonText = GetLocalString("Close"),
-            XamlRoot = this.XamlRoot,
-            RequestedTheme = this.ActualTheme
-        };
-
-        if (await dialog.ShowAsync() == ContentDialogResult.Primary)
-        {
-            UserHepler.LogOut();
-            Login();
-        }
-    }
-
-    /// <summary>
-    /// 登录
-    /// </summary>
-    private void Login()
-    {
-        var newWindow = WindowHelper.CreateWindow();
-        var rootPage = new LoginPage();
-        rootPage.RequestedTheme = ThemeHelper.RootTheme;
-        newWindow.Content = rootPage;
-        newWindow.SetWindowSize(430, 440);
-        newWindow.SetIsAlwaysOnTop(true);
-        newWindow.SetWindowPresenter(AppWindowPresenterKind.Overlapped);
-        newWindow.ExtendsContentIntoTitleBar = true;
-        newWindow.Activate();
-
-        WindowId windowId = Win32Interop.GetWindowIdFromWindow(newWindow.GetWindowHandle());
-        AppWindow appWindow = AppWindow.GetFromWindowId(windowId);
-        if (appWindow is not null)
-        {
-            DisplayArea displayArea = DisplayArea.GetFromWindowId(windowId, DisplayAreaFallback.Nearest);
-            if (displayArea is not null)
-            {
-                var CenteredPosition = appWindow.Position;
-                CenteredPosition.X = ((displayArea.WorkArea.Width - appWindow.Size.Width) / 2);
-                CenteredPosition.Y = ((displayArea.WorkArea.Height - appWindow.Size.Height) / 2);
-                appWindow.Move(CenteredPosition);
-            }
-        }
-    }
-
 }

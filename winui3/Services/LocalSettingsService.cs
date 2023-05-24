@@ -3,7 +3,6 @@ using HiNote.Core.Contracts.Services;
 using HiNote.Core.Helpers;
 using HiNote.Helpers;
 using HiNote.Models;
-
 using Microsoft.Extensions.Options;
 using Windows.Storage;
 

@@ -187,12 +187,6 @@
                         <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xF0B3;"/>
                     </Button.Content>
                 </Button>
-                <Button x:Uid="NoteListPage_Note_Ai" Width="45" Click="AiButton_Click"
-                        RelativePanel.RightOf="AiButton">
-                    <Button.Content>
-                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xEBD2;"/>
-                    </Button.Content>
-                </Button>
                 <Button x:Uid="NoteListPage_Note_Delete" Click="DeleteButton_Click" AccessKey="D"
                         RelativePanel.RightOf="openFileButton">
                     <Button.Content>

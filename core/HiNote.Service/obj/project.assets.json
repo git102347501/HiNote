@@ -56,7 +56,7 @@
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
-    "version": "2.2.5",
+    "version": "2.3.0",
     "restore": {
       "projectUniqueName": "F:\\GitHub\\HiNote\\core\\HiNote.Service\\HiNote.Service.csproj",
       "projectName": "HiNote.Service",

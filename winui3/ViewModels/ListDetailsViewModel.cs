@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.WinUI.UI.Controls;
 using HiNote.Contracts.ViewModels;
-using HiNote.Service.Contracts.Services;
+using HiNote.Service.Contracts;
 using HiNote.Service.Models;
 using HiNote.Service.Services;
 using Microsoft.UI.Xaml;
@@ -20,7 +20,6 @@ namespace HiNote.ViewModels;
 public class ListDetailsViewModel : ObservableRecipient
 {
     private readonly INoteService _noteService;
-    private readonly IOpenAIService _openAIService;
     private GetCategoryOutput? _selected;
     private NoteViewModel? _data = new NoteViewModel();
     public RichEditBox RichEditBox;
@@ -205,10 +204,9 @@ public class ListDetailsViewModel : ObservableRecipient
     public ObservableCollection<ExplorerItem> DataSource { get; private set; } = new ObservableCollection<ExplorerItem>();
 
 
-    public ListDetailsViewModel(INoteService noteService, IOpenAIService openAIService)
+    public ListDetailsViewModel(INoteService noteService)
     {
         _noteService = noteService;
-        _openAIService = openAIService;
     }
 
     public async void OnNavigatedTo(object parameter)
@@ -782,43 +780,6 @@ public class ListDetailsViewModel : ObservableRecipient
         {
             await this.LoadCategoryListAsync();
         }
-    }
-
-    /// <summary>
-    /// 获取AI返回文本
-    /// </summary>
-    /// <param name="content"></param>
-    /// <param name="instruction"></param>
-    /// <returns></returns>
-    public async Task<ResultDto<CreateEditOuput>> GetAITextAsync(string content, string instruction)
-    {
-        IsError = false;
-        IsStart = true;
-        var res = await _openAIService.CreateEditAsync(new CreateEditInput()
-        {
-            Content = content,
-            Instruction = instruction,
-            Mode = 4
-        });
-        if (res.IsSuccess)
-        {
-            var rescontent = "";
-            foreach (var item in res.Data.ChoiseList)
-            {
-                rescontent += item + Environment.NewLine;
-            }
-            if (this.Data.EditType == 1)
-            {
-                this.Data.Content = rescontent;
-            } 
-            else
-            {
-                this.RichEditBox.Document.SetText(Microsoft.UI.Text.TextSetOptions.FormatRtf, rescontent);
-            }
-        }
-        IsError = !res.IsSuccess;
-        IsStart = false;
-        return res;
     }
 
     /// <summary>

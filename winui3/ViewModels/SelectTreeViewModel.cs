@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using HiNote.Service.Contracts.Services;
+using HiNote.Service.Contracts;
 using HiNote.Service.Models;
-using HiNote.Service.Services;
 using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;

@@ -52,9 +52,6 @@
                         <FontIcon FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xe774;"/>
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                <NavigationViewItem Content="{x:Bind ViewModel.LoginText, Mode=OneWay }" 
-                                    Tapped="NavigationViewItem_Tapped" 
-                                    Tag="{x:Bind ViewModel.LoginText, Mode=OneWay }" Icon="{x:Bind ViewModel.LoginIcon, Mode=OneWay }" />
             </NavigationView.MenuItems>
             <NavigationView.HeaderTemplate>
                 <DataTemplate>
