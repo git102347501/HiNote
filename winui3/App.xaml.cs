@@ -6,6 +6,8 @@ using HiNote.Core.Services;
 using HiNote.Helpers;
 using HiNote.Models;
 using HiNote.Notifications;
+using HiNote.Service.Contracts;
+using HiNote.Service.Services;
 using HiNote.Services;
 using HiNote.ViewModels;
 using HiNote.Views;
@@ -105,6 +107,7 @@ public partial class App : Application
 
             services.AddSingleton<IActivationService, ActivationService>();
             services.AddSingleton<IPageService, PageService>();
+            services.AddSingleton<INoteService, NoteService>();
             services.AddSingleton<INavigationService, NavigationService>();
 
             // Core Services

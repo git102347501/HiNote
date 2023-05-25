@@ -65,13 +65,13 @@
             <StackPanel Orientation="Horizontal" Padding="10,0,10,0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Button Margin="0,0,10,0" Click="AddCategory_Button_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Add"/>
+                        <FontIcon Width="20" Height="20" Margin="0,0,6,0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE710;"/>
                         <TextBlock x:Uid="NoteListPage_Category_Add" />
                     </StackPanel>
                 </Button>
                 <Button Width="45" Margin="0,0,10,0" Click="RefCategory_Button_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0">
-                        <SymbolIcon Width="20" Height="20" Symbol="Refresh"/>
+                        <FontIcon Width="20" Height="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE72C;"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -104,13 +104,13 @@
             <StackPanel Orientation="Horizontal" Padding="10,0,10,0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Button Margin="0,0,10,0" Click="AddNote_Button_Click">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Add"/>
+                        <FontIcon Width="20" Height="20" Margin="0,0,6,0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE710;"/>
                         <TextBlock x:Uid="NoteListPage_Note_Add" />
                     </StackPanel>
                 </Button>
                 <Button Width="45" Margin="0,0,10,0" Click="SortButton_Click" >
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <SymbolIcon Width="19" Height="19" Symbol="{x:Bind ViewModel.SortIcon, Mode=OneWay}"/>
+                        <FontIcon Width="20" Height="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE72C;"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -223,7 +223,7 @@
                                             ToolTipService.ToolTip="Font color"
                                             Background="Transparent" 
                                             RelativePanel.AlignRightWithPanel="True">
-                    <SymbolIcon Symbol="FontColor"/>
+                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8D3;"/>
                     <DropDownButton.Flyout>
                         <Flyout Placement="Bottom">
                             <VariableSizedWrapGrid Orientation="Horizontal" MaximumRowsOrColumns="3">
