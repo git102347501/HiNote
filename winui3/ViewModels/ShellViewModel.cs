@@ -20,7 +20,7 @@ public class ShellViewModel : ObservableRecipient
         set => SetProperty(ref _loginText, value);
     }
 
-    private IconElement _loginIcon = new SymbolIcon(Symbol.OtherUser);
+    private IconElement _loginIcon = new FontIcon();
     public IconElement LoginIcon
     {
         get => _loginIcon;

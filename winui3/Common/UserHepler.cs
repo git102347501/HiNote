@@ -11,7 +11,7 @@ namespace HiNote.Common
             var shellViewModel = App.GetService<ShellViewModel>();
             shellViewModel.LoginText = new ResourceLoader().GetString("LoginPageLoginBtn");
             shellViewModel.IsLogin = false;
-            shellViewModel.LoginIcon = new SymbolIcon(Symbol.OtherUser);
+            shellViewModel.LoginIcon = new FontIcon();
 
             // 清空内容编辑区
             var listDetailsViewModel = App.GetService<ListDetailsViewModel>();

@@ -20,7 +20,7 @@
                 ItemsSource="{x:Bind Children}" IsExpanded="{x:Bind IsExpanded,Mode=TwoWay}">
 
                 <StackPanel Width="Auto" Orientation="Horizontal" HorizontalAlignment="Left">
-                    <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Library"/>
+                    <FontIcon Width="20" Height="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xEC50;"/>
                     <TextBlock Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
             </TreeViewItem>
@@ -32,7 +32,7 @@
                            IsSelected="{x:Bind IsSelected,Mode=TwoWay}">
 
                 <StackPanel Orientation="Horizontal" >
-                    <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Refresh"/>
+                    <FontIcon Width="20" Height="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE72C;"/>
                     <TextBlock Margin="0,0,10,0"/>
                     <TextBlock Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>

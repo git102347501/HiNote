@@ -15,7 +15,7 @@
     <Page.Resources>
         <DataTemplate x:Key="ContactListViewTemplate" x:DataType="model:NoteItem">
             <StackPanel  Width="Auto" Orientation="Horizontal" HorizontalAlignment="Left">
-                <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Page"/>
+                <FontIcon Width="20" Height="20" Margin="0,0,6,0" FontFamily="{StaticResource SymbolThemeFontFamily}" Glyph="&#xE89A;"/>
                 <TextBlock Text="{ x:Bind Title,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" x:Phase="1" Margin="0,5,0,5"/>
             </StackPanel>
         </DataTemplate>
@@ -40,7 +40,7 @@
                            IsSelected="{x:Bind IsSelected,Mode=TwoWay}">
 
                 <StackPanel Orientation="Horizontal" >
-                    <SymbolIcon Width="20" Height="20" Margin="0,0,6,0" Symbol="Refresh"/>
+                    <FontIcon Width="20" Height="20" FontFamily="Segoe MDL2 Assets" Glyph="&#xE72C;"/>
                     <TextBlock Margin="0,0,10,0"/>
                     <TextBlock Text="{x:Bind Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                 </StackPanel>
